@@ -11,4 +11,8 @@
     <ProjectReference Include="..\E-CommerceFood.DAL\E-CommerceFood.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Managers\" />
+  </ItemGroup>
+
 </Project>

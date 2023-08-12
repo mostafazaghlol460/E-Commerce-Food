@@ -15,7 +15,7 @@ namespace E_CommerceFood.DAL.Model
         public bool IsDeleted { get; set; } 
         public double Total { get; set; }
         [ForeignKey(nameof(user))]
-        public int ? UserId { get; set; }
+        public string ? UserId { get; set; }
         public virtual User ? user { get; set; }
         public virtual ICollection<ProductOrder>? ProductOrders { get; set; }
     }

@@ -7,7 +7,7 @@ namespace E_CommerceFood.DAL.Repositories
         List<Orders> GetAll();
         Orders GetById(int id);
         void Create(Orders orders);
-        void Update(int id, Orders orders);
+        void Update(Orders orders);
         void Delete(int id);
         void Save();
     }

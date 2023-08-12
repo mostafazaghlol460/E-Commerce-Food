@@ -12,13 +12,13 @@ namespace E_CommerceFood.DAL.Repositories
 
         public List<Orders> GetAll()
         {
-            return _context.Orderss.ToList();
+            return _context.Orderss.Where(o=>o.IsDeleted==false).ToList();
         }
 
         public Orders GetById(int id)
         {
             return _context.Orderss
-                            .FirstOrDefault(o => o.Id == id);
+                            .FirstOrDefault(o => o.Id == id && o.IsDeleted == false);
         }
 
         public void Create(Orders orders)
@@ -26,20 +26,15 @@ namespace E_CommerceFood.DAL.Repositories
             _context.Orderss.Add(orders);
         }
 
-        public void Update(int id,Orders orders)
+        public void Update(Orders orders)
         {
-            Orders orderDb = GetById(id);
-
-            orderDb.Total = orders.Total;
-            orderDb.Quantity = orders.Quantity;
-            orderDb.UserId = orders.UserId;
-            orderDb.Date = orders.Date;
+            _context.Orderss.Update(orders);
         }
 
         public void Delete (int id)
         {
             Orders orderDb = GetById(id);
-            _context.Orderss.Remove(orderDb);
+            orderDb.IsDeleted = true;
         }
 
         public void Save()

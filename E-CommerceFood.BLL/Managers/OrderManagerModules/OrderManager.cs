@@ -22,17 +22,22 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
             List<Orders> orders = orderRepository.GetAll();
             List<OrderGetAllDto> orderGetAllDtos = new List<OrderGetAllDto>();
 
-            foreach(Orders order in orders)
+            if(orders != null)
             {
-                var orderList = new OrderGetAllDto
+                foreach (Orders order in orders)
                 {
-                    Id = order.Id,
-                    Date = order.Date,
-                    Quantity = order.Quantity,
-                    Total = order.Total
-                };
-                orderGetAllDtos.Add(orderList);
+                    var orderList = new OrderGetAllDto
+                    {
+                        Id = order.Id,
+                        Date = order.Date,
+                        Quantity = order.Quantity,
+                        Total = order.Total,
+                        UserName = order?.user?.UserName
+                    };
+                    orderGetAllDtos.Add(orderList);
+                }
             }
+            
             return orderGetAllDtos;
         }
 
@@ -45,7 +50,7 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
                 Date = order.Date,
                 Quantity = order.Quantity,
                 Total = order.Total,
-                User = order?.user
+                UserId = order.UserId
             };
             return orderDto;
         }
@@ -59,6 +64,7 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
                 Date = orderCreatedDto.Date,
                 Quantity = orderCreatedDto.Quantity,
                 Total = orderCreatedDto.Total,
+                UserId=orderCreatedDto.UserId
             };
 
             orderRepository.Create(orderDb);
@@ -72,6 +78,27 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
             return result;
 
         }
+
+        public OrderUpdateDto Update(OrderUpdateDto orderUpdateDto, int id)
+        {
+            if (orderUpdateDto == null)
+                return null;
+
+            var orderDb = orderRepository.GetById(id);
+
+            if (orderDb == null)
+                return null;
+
+            orderDb.Date = orderUpdateDto.Date;
+            orderDb.Quantity = orderUpdateDto.Quantity;
+            orderDb.Total = orderUpdateDto.Total;
+            orderDb.UserId = orderUpdateDto.UserId;
+
+            orderRepository.Update(orderDb, id);
+
+            return orderUpdateDto;
+        }
+       
 
     }
 }

@@ -21,7 +21,7 @@ namespace E_CommerceFood.Controllers
         {
             List<OrderGetAllDto> orders = orderManager.GetAll();
 
-            if (orders.Count > 0)
+            if (orders !=null)
             {
                 return Ok(orders);
             }
@@ -35,7 +35,7 @@ namespace E_CommerceFood.Controllers
         public IActionResult GetById(int id)
         {
             var order = orderManager.GetById(id);
-            if(order == null)
+            if (order == null)
             {
                 return NotFound();
             }
@@ -56,6 +56,27 @@ namespace E_CommerceFood.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPut]
+
+        [Route("Update/{id}")]
+
+        public IActionResult Put (OrderUpdateDto orderUpdateDto,int id)
+        {
+           if(orderUpdateDto != null)
+            {
+                var result = orderManager.Update(orderUpdateDto, orderUpdateDto.Id);
+
+                if (result !=null) 
+                {
+                    return Ok(result);
+                }
+            }
+            return BadRequest();
+
+        }
+
+
 
     }
 }

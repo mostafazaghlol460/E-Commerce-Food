@@ -45,7 +45,7 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
                 Date = order.Date,
                 Quantity = order.Quantity,
                 Total = order.Total,
-                UserId = order.UserId
+                User = order?.user
             };
             return orderDto;
         }

@@ -31,7 +31,7 @@ namespace E_CommerceFood.Controllers
             }
         }
 
-        [HttpGet("{id")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var order = orderManager.GetById(id);
@@ -42,7 +42,7 @@ namespace E_CommerceFood.Controllers
             return Ok(order);
         }
 
-        [HttpPost()]
+        [HttpPost]
         public IActionResult Create(OrderCreatedDto orderCreatedDto)
         {
             if (ModelState.IsValid)

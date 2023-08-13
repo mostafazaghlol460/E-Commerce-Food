@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_CommerceFood.DAL.Model
+namespace E_CommerceFood.DAL.Repositories
 {
-    public class User:ApplicationUser
+    internal class Class1
     {
-        public string Address { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_CommerceFood.DAL.Model
 {
-    //[PrimaryKey(nameof(OrderId),nameof(ProductId))]
+    [PrimaryKey(nameof(OrderId),nameof(ProductId))]
     public class ProductOrder
     {
         [ForeignKey(nameof(orders))]

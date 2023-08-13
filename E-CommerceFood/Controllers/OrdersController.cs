@@ -73,7 +73,15 @@ namespace E_CommerceFood.Controllers
                 }
             }
             return BadRequest();
+        }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+           var result= orderManager.GetById(id);
+
+            if (result != null) return Ok();
+            return NotFound();
         }
 
 

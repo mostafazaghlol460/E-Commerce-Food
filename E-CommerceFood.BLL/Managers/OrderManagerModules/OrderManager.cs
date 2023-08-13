@@ -2,6 +2,7 @@
 using E_CommerceFood.DAL;
 using E_CommerceFood.DAL.Model;
 using E_CommerceFood.DAL.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_CommerceFood.BLL.Managers.OrderManagerModules
@@ -99,6 +100,16 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
             return orderUpdateDto;
         }
        
+        public void Delete(int id)
+        {
+            var orderDb = orderRepository.GetById(id);
+
+            if (orderDb != null)
+
+            orderDb.IsDeleted = true;
+
+            orderRepository.Save();
+        }
 
     }
 }

@@ -36,6 +36,19 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
             return orderGetAllDtos;
         }
 
+        public OrderDetailsDto GetById(int id)
+        {
+            Orders order = orderRepository.GetById(id);
+            var orderDto = new OrderDetailsDto
+            {
+                Id = order.Id,
+                Date = order.Date,
+                Quantity = order.Quantity,
+                Total = order.Total,
+                UserId = order.UserId
+            };
+            return orderDto;
+        }
         public OrderAddedDto Create(OrderCreatedDto orderCreatedDto)
         {
             if (orderCreatedDto == null)

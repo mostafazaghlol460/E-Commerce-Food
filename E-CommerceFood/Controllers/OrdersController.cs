@@ -31,6 +31,17 @@ namespace E_CommerceFood.Controllers
             }
         }
 
+        [HttpGet("{id")]
+        public IActionResult GetById(int id)
+        {
+            var order = orderManager.GetById(id);
+            if(order == null)
+            {
+                return NotFound();
+            }
+            return Ok(order);
+        }
+
         [HttpPost()]
         public IActionResult Create(OrderCreatedDto orderCreatedDto)
         {

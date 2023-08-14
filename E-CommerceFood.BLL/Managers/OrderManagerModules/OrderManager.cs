@@ -10,12 +10,9 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
     public class OrderManager
     {
         IOrderRepository orderRepository;
-        DBContextFood context;
-        public OrderManager(IOrderRepository orderRepository,
-                            DBContextFood context)
+        public OrderManager(IOrderRepository orderRepository)
         {
             this.orderRepository = orderRepository;
-            this.context = context;
         }
 
         public List<OrderGetAllDto> GetAll()

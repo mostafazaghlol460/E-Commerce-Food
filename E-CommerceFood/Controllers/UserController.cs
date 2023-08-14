@@ -38,5 +38,17 @@ namespace E_CommerceFood.Controllers
 
             return Unauthorized();
         }
+        [HttpPut]
+        [Route("/Update/{id}")]
+        public async Task<ActionResult<TokenDto>> UpdateUser(LoginUserDTO UserData)
+        {
+            var result = await _userBLL.login(UserData);
+            if (result != null)
+            {
+                return result;
+            }
+
+            return Unauthorized();
+        }
     }
 }

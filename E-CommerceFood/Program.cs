@@ -26,6 +26,7 @@ namespace E_CommerceFood
             builder.Services.AddScoped<UserBLL>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IOrderManager,OrderManager>();
+            
 
             #region Database
             var ConnectionString = builder.Configuration.GetConnectionString("Food");

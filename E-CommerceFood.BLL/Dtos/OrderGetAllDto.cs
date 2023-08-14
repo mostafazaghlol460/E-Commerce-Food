@@ -6,6 +6,6 @@
         public DateTime Date { get; set; }
         public int Quantity { get; set; }
         public double Total { get; set; }
-        public string userName { get; set; }
+        public string UserName { get; set; }
     }
 }

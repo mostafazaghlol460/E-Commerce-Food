@@ -12,7 +12,17 @@ namespace E_CommerceFood.Controllers
         {
             _userBLL = registerUser;
         }
-
+        [HttpGet]
+        [Route("GetAllUser")]
+        public async Task<ActionResult> GetAllUsers()
+        {
+            var Data = await _userBLL.GetAllUser();
+            if (Data.Succeeded)
+            {
+                return Ok(Data);
+            }
+            return NotFound();
+        }
         [HttpPost]
         [Route("User/Register")]
         public async Task<ActionResult> RegisterUser(ResgisterUserDTO UserData)
@@ -40,15 +50,17 @@ namespace E_CommerceFood.Controllers
         }
         [HttpPut]
         [Route("/Update/{id}")]
-        public async Task<ActionResult<TokenDto>> UpdateUser(LoginUserDTO UserData)
+        public async Task<ActionResult<UpdateDTO>> UpdateUser(UpdateDTO UserData)
         {
-            var result = await _userBLL.login(UserData);
-            if (result != null)
+            var result = await _userBLL.update_User(UserData);
+            if (result.Succeeded)
             {
-                return result;
+                return Ok();
             }
 
-            return Unauthorized();
+            return BadRequest();
         }
+
+
     }
 }

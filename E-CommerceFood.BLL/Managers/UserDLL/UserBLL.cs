@@ -16,15 +16,20 @@ namespace E_CommerceFood.BLL.Managers.UserDLL
     public class UserBLL
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configration;
 
-        public UserBLL(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configration)
+        public UserBLL(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+            IConfiguration configration, 
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configration = configration;
+            _roleManager = roleManager;
         }
         public async Task<IdentityResult> Registeration(ResgisterUserDTO RegisterData)
         {
@@ -51,6 +56,34 @@ namespace E_CommerceFood.BLL.Managers.UserDLL
             return result;
 
         }
+        
+        public async Task<IdentityResult> update_User(UpdateDTO updateData)
+        {
+            var data =await _userManager.FindByIdAsync(updateData.Id);
+            var UserData = new User
+            {
+                UserName = updateData.Name,
+                Email = updateData.Email,
+                PhoneNumber = updateData.PhoneNumber,
+                Address = updateData.Address
+            };
+            var result = await _userManager.UpdateAsync(UserData);
+            if (result.Succeeded)
+            {
+                return result;
+            }
+            else
+                return null;
+        }
+        //public async Task<IdentityResult> GetAllUser()
+        //{
+        //    var user= 
+
+        //    var usersInRole = await _userManager.GetClaimsAsync(updateData);
+
+        //    return (IdentityResult)usersInRole;
+        //}
+
         public async Task<TokenDto> login(LoginUserDTO loginUserDTO)
         {
             var user = await _userManager.FindByNameAsync(loginUserDTO.UserName);
@@ -70,7 +103,7 @@ namespace E_CommerceFood.BLL.Managers.UserDLL
             //generate secretkey 
             var SecretKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configration.GetValue<string>("SecretKey")));
             //generate signing crdentials
-            var Signing=new SigningCredentials(SecretKey,SecurityAlgorithms.HmacSha256);
+            var Signing = new SigningCredentials(SecretKey, SecurityAlgorithms.HmacSha256);
             //create expiration 
             var expiryDate = DateTime.Now.AddHours(1);
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken

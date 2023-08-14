@@ -12,17 +12,17 @@ namespace E_CommerceFood.Controllers
         {
             _userBLL = registerUser;
         }
-        [HttpGet]
-        [Route("GetAllUser")]
-        public async Task<ActionResult> GetAllUsers()
-        {
-            var Data = await _userBLL.GetAllUser();
-            if (Data.Succeeded)
-            {
-                return Ok(Data);
-            }
-            return NotFound();
-        }
+        //[HttpGet]
+        //[Route("GetAllUser")]
+        //public async Task<ActionResult> GetAllUsers()
+        //{
+        //    var Data = await _userBLL.GetAllUser();
+        //    if (Data.Succeeded)
+        //    {
+        //        return Ok(Data);
+        //    }
+        //    return NotFound();
+        //}
         [HttpPost]
         [Route("User/Register")]
         public async Task<ActionResult> RegisterUser(ResgisterUserDTO UserData)

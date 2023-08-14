@@ -1,4 +1,5 @@
 ﻿using E_CommerceFood.DAL.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_CommerceFood.DAL.Repositories
 {
@@ -12,7 +13,7 @@ namespace E_CommerceFood.DAL.Repositories
 
         public List<Orders> GetAll()
         {
-            return _context.Orderss.Where(o=>o.IsDeleted==false).ToList();
+            return _context.Orderss.Where(o=>o.IsDeleted==false).Include(u=>u.user).ToList();
         }
 
         public Orders GetById(int id)

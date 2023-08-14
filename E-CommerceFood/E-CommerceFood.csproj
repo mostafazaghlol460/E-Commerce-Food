@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\E-CommerceFood.BLL\E-CommerceFood.BLL.csproj" />
-    <ProjectReference Include="..\E-CommerceFood.DAL\E-CommerceFood.DAL.csproj" />
   </ItemGroup>
 
 </Project>

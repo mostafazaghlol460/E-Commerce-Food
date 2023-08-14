@@ -29,7 +29,8 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
                     Id = order.Id,
                     Date = order.Date,
                     Quantity = order.Quantity,
-                    Total = order.Total
+                    Total = order.Total,
+                    userName=order.user.UserName
                 };
                 orderGetAllDtos.Add(orderList);
             }

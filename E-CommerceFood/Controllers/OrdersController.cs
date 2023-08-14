@@ -17,7 +17,7 @@ namespace E_CommerceFood.Controllers
 
 
         [HttpGet]
-        public IActionResult GetAll()
+        public ActionResult GetAll()
         {
             List<OrderGetAllDto> orders = orderManager.GetAll();
 

@@ -15,8 +15,7 @@ namespace E_CommerceFood.DAL.Repositories
         {
             return _context.Orderss
                 .Where(o=>o.IsDeleted==false)
-                .Include(o => o.user)
-                .Include(o=>o.ApplicationUser).ToList();
+                .Include(o => o.user).ToList();
         }
 
         public Orders GetById(int id)

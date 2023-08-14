@@ -1,13 +1,11 @@
 ﻿using E_CommerceFood.BLL.Dtos;
-using E_CommerceFood.DAL;
 using E_CommerceFood.DAL.Model;
 using E_CommerceFood.DAL.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace E_CommerceFood.BLL.Managers.OrderManagerModules
 {
-    public class OrderManager
+    public class OrderManager:IOrderManager
     {
         IOrderRepository orderRepository;
         public OrderManager(IOrderRepository orderRepository)
@@ -18,7 +16,7 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
         public List<OrderGetAllDto> GetAll()
         {
             List<Orders> orders = orderRepository.GetAll();
-            List<OrderGetAllDto> orderGetAllDtos = new List<OrderGetAllDto>();
+            List<OrderGetAllDto> orderGetAllDto = new List<OrderGetAllDto>();
 
             if(orders != null)
             {
@@ -30,13 +28,13 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
                         Date = order.Date,
                         Quantity = order.Quantity,
                         Total = order.Total,
-                        UserName = order?.user?.UserName
+                        UserName=order?.user?.UserName
                     };
-                    orderGetAllDtos.Add(orderList);
+                    orderGetAllDto.Add(orderList);
                 }
             }
             
-            return orderGetAllDtos;
+            return orderGetAllDto;
         }
 
         public OrderDetailsDto GetById(int id)
@@ -77,7 +75,7 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
 
         }
 
-        public OrderUpdateDto Update(OrderUpdateDto orderUpdateDto, int id)
+        public OrderUpdateDto Update(OrderUpdateDto orderUpdateDto,int id)
         {
             if (orderUpdateDto == null)
                 return null;
@@ -92,20 +90,19 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
             orderDb.Total = orderUpdateDto.Total;
             orderDb.UserId = orderUpdateDto.UserId;
 
-            orderRepository.Update(orderDb, id);
+            orderRepository.Update(orderDb,id);
 
             return orderUpdateDto;
         }
        
-        public void Delete(int id)
+        public Orders Delete(int id)
         {
-            var orderDb = orderRepository.GetById(id);
+            var result= orderRepository.GetById(id);
 
-            if (orderDb != null)
+            if (result == null) return null;
 
-            orderDb.IsDeleted = true;
-
-            orderRepository.Save();
+            orderRepository.Delete(id);
+            return result;
         }
 
     }

@@ -22,7 +22,7 @@ namespace E_CommerceFood
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-            builder.Services.AddScoped<OrderManager>();
+            builder.Services.AddScoped<IOrderManager,OrderManager>();
 
 
             #region Database

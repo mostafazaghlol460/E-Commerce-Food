@@ -25,17 +25,21 @@ namespace E_CommerceFood.DAL.Repositories
         public void Create(Orders orders)
         {
             _context.Orderss.Add(orders);
+            Save();
         }
 
-        public void Update(Orders orders)
+        public void Update(Orders orders,int id)
         {
+            var orderDb = _context.Orderss.FirstOrDefault(o => o.Id == id);
             _context.Orderss.Update(orders);
+            Save();
         }
 
         public void Delete (int id)
         {
             Orders orderDb = GetById(id);
             orderDb.IsDeleted = true;
+            Save();
         }
 
         public void Save()

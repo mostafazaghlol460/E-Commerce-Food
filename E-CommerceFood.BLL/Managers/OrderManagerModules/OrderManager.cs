@@ -1,40 +1,40 @@
 ﻿using E_CommerceFood.BLL.Dtos;
-using E_CommerceFood.DAL;
 using E_CommerceFood.DAL.Model;
 using E_CommerceFood.DAL.Repositories;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace E_CommerceFood.BLL.Managers.OrderManagerModules
 {
-    public class OrderManager
+    public class OrderManager:IOrderManager
     {
         IOrderRepository orderRepository;
-        DBContextFood context;
-        public OrderManager(IOrderRepository orderRepository,
-                            DBContextFood context)
+        public OrderManager(IOrderRepository orderRepository)
         {
             this.orderRepository = orderRepository;
-            this.context = context;
         }
 
         public List<OrderGetAllDto> GetAll()
         {
             List<Orders> orders = orderRepository.GetAll();
-            List<OrderGetAllDto> orderGetAllDtos = new List<OrderGetAllDto>();
+            List<OrderGetAllDto> orderGetAllDto = new List<OrderGetAllDto>();
 
-            foreach(Orders order in orders)
+            if(orders != null)
             {
-                var orderList = new OrderGetAllDto
+                foreach (Orders order in orders)
                 {
-                    Id = order.Id,
-                    Date = order.Date,
-                    Quantity = order.Quantity,
-                    Total = order.Total,
-                    userName=order.user.UserName
-                };
-                orderGetAllDtos.Add(orderList);
+                    var orderList = new OrderGetAllDto
+                    {
+                        Id = order.Id,
+                        Date = order.Date,
+                        Quantity = order.Quantity,
+                        Total = order.Total,
+                        UserName=order?.user?.UserName
+                    };
+                    orderGetAllDto.Add(orderList);
+                }
             }
-            return orderGetAllDtos;
+            
+            return orderGetAllDto;
         }
 
         public OrderDetailsDto GetById(int id)
@@ -46,7 +46,7 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
                 Date = order.Date,
                 Quantity = order.Quantity,
                 Total = order.Total,
-                User = order?.user
+                UserId = order.UserId
             };
             return orderDto;
         }
@@ -60,6 +60,7 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
                 Date = orderCreatedDto.Date,
                 Quantity = orderCreatedDto.Quantity,
                 Total = orderCreatedDto.Total,
+                UserId=orderCreatedDto.UserId
             };
 
             orderRepository.Create(orderDb);
@@ -72,6 +73,36 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
             };
             return result;
 
+        }
+
+        public OrderUpdateDto Update(OrderUpdateDto orderUpdateDto,int id)
+        {
+            if (orderUpdateDto == null)
+                return null;
+
+            var orderDb = orderRepository.GetById(id);
+
+            if (orderDb == null)
+                return null;
+
+            orderDb.Date = orderUpdateDto.Date;
+            orderDb.Quantity = orderUpdateDto.Quantity;
+            orderDb.Total = orderUpdateDto.Total;
+            orderDb.UserId = orderUpdateDto.UserId;
+
+            orderRepository.Update(orderDb,id);
+
+            return orderUpdateDto;
+        }
+       
+        public Orders Delete(int id)
+        {
+            var result= orderRepository.GetById(id);
+
+            if (result == null) return null;
+
+            orderRepository.Delete(id);
+            return result;
         }
 
     }

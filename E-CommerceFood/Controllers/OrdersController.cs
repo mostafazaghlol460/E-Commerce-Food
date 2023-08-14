@@ -1,6 +1,5 @@
 ﻿using E_CommerceFood.BLL.Dtos;
 using E_CommerceFood.BLL.Managers.OrderManagerModules;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_CommerceFood.Controllers
@@ -9,33 +8,25 @@ namespace E_CommerceFood.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        OrderManager orderManager;
-        public OrdersController(OrderManager orderManager)
+        private IOrderManager _orderManager;
+        public OrdersController(IOrderManager orderManager)
         {
-            this.orderManager = orderManager;
+            _orderManager = orderManager;
         }
-
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            List<OrderGetAllDto> orders = orderManager.GetAll();
-
-            if (orders.Count > 0)
-            {
-                return Ok(orders);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return Ok(_orderManager.GetAll());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("Details/{id}")]
+
         public IActionResult GetById(int id)
         {
-            var order = orderManager.GetById(id);
-            if(order == null)
+            var order = _orderManager.GetById(id);
+            if (order == null)
             {
                 return NotFound();
             }
@@ -45,9 +36,9 @@ namespace E_CommerceFood.Controllers
         [HttpPost]
         public IActionResult Create(OrderCreatedDto orderCreatedDto)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid ==true)
             {
-                var order = orderManager.Create(orderCreatedDto);
+                var order = _orderManager.Create(orderCreatedDto);
 
                 return Created("api/Orders/" + order.Id, order);
             }
@@ -55,6 +46,31 @@ namespace E_CommerceFood.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpPut]
+        [Route("Update/{id}")]
+        public IActionResult Put (OrderUpdateDto orderUpdateDto,int id)
+        {
+           if(orderUpdateDto != null)
+            {
+                var result = _orderManager.Update(orderUpdateDto, id);
+
+                if (result !=null) 
+                {
+                    return Ok(result);
+                }
+            }
+            return BadRequest();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+          var result= _orderManager.Delete(id);
+
+            if (result != null) return Ok();
+            return NotFound();
         }
 
 

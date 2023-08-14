@@ -1,6 +1,8 @@
 
+using E_CommerceFood.BLL.Managers;
 using E_CommerceFood.DAL;
 using E_CommerceFood.DAL.Model;
+using E_CommerceFood.DAL.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +20,17 @@ namespace E_CommerceFood
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ProductManager>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<CategoryManager>();
+
+
+
+
+
+
+
             #region Database
             var ConnectionString = builder.Configuration.GetConnectionString("Food");
             builder.Services.AddDbContext<DBContextFood>(options =>

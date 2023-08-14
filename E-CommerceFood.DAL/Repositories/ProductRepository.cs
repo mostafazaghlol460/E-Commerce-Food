@@ -18,8 +18,7 @@ namespace E_CommerceFood.DAL.Repositories
         }
         public Product GetById(int id)
         {
-            return _context.Products
-                            .FirstOrDefault(p => p.Id == id && p.IsDeleted==false);
+            return _context.Products.FirstOrDefault(p => p.Id == id && p.IsDeleted==false);
         }
         public List<Product> GetAll()
         {
@@ -33,7 +32,6 @@ namespace E_CommerceFood.DAL.Repositories
                 Descrption = product.Descrption,
                 Image = product.Image,
                 Price = product.Price,
-                IsDeleted = product.IsDeleted,
                 CategoryId = product.CategoryId
             };
              _context.Products.Add(prod);

@@ -13,32 +13,86 @@ namespace E_CommerceFood.BLL.Managers
    public class CategoryManager
     {
         ICategoryRepository categoryRepository;
-        DBContextFood context;
 
-        public CategoryManager(ICategoryRepository categoryRepository, DBContextFood context)
+        public CategoryManager(ICategoryRepository categoryRepository)
         {
             this.categoryRepository = categoryRepository;
-            this.context = context;
+            
         }
-        //public List<CategoryGetAll> GetAll()
-        //{
-        //    List<Category> categories = categoryRepository.GetAll();
-        //    List<Category> CategoryGetAlls = new List<CategoryGetAll>();
+        public List<CategoryGetAll> GetAll()
+        {
+            List<Category> categories = categoryRepository.GetAll();
+            List<CategoryGetAll> categoryGetAlls = new List<CategoryGetAll>();
 
-        //    foreach (Product product in products)
-        //    {
-        //        var productlist = new ProductGetAll
-        //        {
-        //            Id = product.Id,
-        //            Name = product.Name,
-        //            Description = product.Descrption,
-        //            Image = product.Image,
-        //            CategoryId = product.CategoryId
-        //        };
-        //        productGetAlls.Add(productlist);
+            foreach (Category category in categories)
+            {
+                var categorylist = new CategoryGetAll()
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                 
+                };
+                categoryGetAlls.Add(categorylist);
 
-        //    }
-        //    return productGetAlls;
-        //}
+            }
+            return categoryGetAlls;
+        }
+        public CategoryDetailsDto GetById(int id)
+        {
+            Category category = categoryRepository.GetById(id);
+            var categoryDto = new CategoryDetailsDto
+            {
+                Name = category.Name
+            };
+
+            return categoryDto;
+        }
+        public CategoryAddDto create(CategoryAddDto categoryCreateDto)
+        {
+            //if (categoryCreateDto == null)
+            //    return null;
+
+            var categorydb = new Category()
+            {
+                Name = categoryCreateDto.Name,
+            };
+            categoryRepository.Add(categorydb);
+            categoryRepository.Save();
+
+            var result = new CategoryAddDto()
+            {
+                Name = categorydb.Name
+            };
+            return result;
+
+        }
+        public Category Delete(int id)
+        {
+            var data = categoryRepository.GetById(id);
+
+            if (data != null)
+            {
+
+                categoryRepository.Delete(id);
+                return data;
+            }
+
+
+            return null;
+        }
+        public CateoryUpdateDto Update(CateoryUpdateDto categoryUpdateDto, int id)
+        {
+            //if (productUpdateDto == null)
+            //    return null;
+            var categorydb = categoryRepository.GetById(id);
+
+            categorydb.Name = categoryUpdateDto.Name;
+            categoryRepository.Update(categorydb, id);
+
+
+            return categoryUpdateDto;
+
+
+        }
     }
 }

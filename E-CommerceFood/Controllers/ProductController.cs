@@ -27,7 +27,9 @@ namespace E_CommerceFood.Controllers
             }
             else { return NotFound(); };
         }
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("Detail/{id}")]
+
         public IActionResult GetById(int id)
         {
             var product = productManager.GetById(id);
@@ -48,14 +50,21 @@ namespace E_CommerceFood.Controllers
             if(ModelState.IsValid)
             {
                 var product = productManager.create(productCreateDto);
-                return Ok(product);
+                if (product != null)
+                {
+                    return Ok(product);
+
+
+                }
             }
-            else
-            {
+            
+            
                 return BadRequest();
-            }
+            
         }
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("delete/{id}")]
+
         public IActionResult Delete(int id)
         {
             var result = productManager.Delete(id);

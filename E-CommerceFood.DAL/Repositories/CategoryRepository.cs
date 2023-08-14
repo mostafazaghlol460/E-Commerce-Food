@@ -1,10 +1,4 @@
 ﻿using E_CommerceFood.DAL.Model;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E_CommerceFood.DAL.Repositories
 {
@@ -18,7 +12,7 @@ namespace E_CommerceFood.DAL.Repositories
         }
         public Category GetById(int id)
         {
-            return _context.Categories.SingleOrDefault(p => p.Id == id && p.IsDeleted == false);
+            return _context.Categories.SingleOrDefault(c => c.Id == id && c.IsDeleted == false);
         }
         public List<Category> GetAll()
         {
@@ -28,8 +22,7 @@ namespace E_CommerceFood.DAL.Repositories
         {
             Category cat = new Category()
             {
-                Name = category.Name,
-              
+                Name = category.Name
             };
             _context.Categories.Add(cat);
             return cat;
@@ -46,7 +39,7 @@ namespace E_CommerceFood.DAL.Repositories
         }
         public void Update(Category category, int id)
         {
-            var categorydb = _context.Categories.FirstOrDefault(g => g.Id == id);
+            var categorydb = _context.Categories.FirstOrDefault(c => c.Id == id);
             _context.Categories.Update(categorydb);
             Save();
         }

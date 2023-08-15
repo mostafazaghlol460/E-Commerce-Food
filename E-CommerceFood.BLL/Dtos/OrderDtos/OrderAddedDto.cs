@@ -1,4 +1,4 @@
-﻿namespace E_CommerceFood.BLL.Dtos
+﻿namespace E_CommerceFood.BLL.Dtos.OrderDtos
 {
     public class OrderAddedDto
     {

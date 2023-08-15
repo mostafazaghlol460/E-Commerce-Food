@@ -1,14 +1,11 @@
-﻿using E_CommerceFood.DAL.Model;
-
-namespace E_CommerceFood.BLL.Dtos
+﻿namespace E_CommerceFood.BLL.Dtos.OrderDtos
 {
-    public class OrderDetailsDto
+    public class OrderGetAllDto
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int Quantity { get; set; }
         public double Total { get; set; }
-        public string? UserId { get; set; }
-
+        public string UserName { get; set; }
     }
 }

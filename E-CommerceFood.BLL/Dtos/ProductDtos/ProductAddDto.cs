@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_CommerceFood.BLL.Dtos
+namespace E_CommerceFood.BLL.Dtos.ProductDtos
 {
-   public class ProductUpdateDto
+    public class ProductAddDto
     {
         public string Name { get; set; }
         public string Description { get; set; }

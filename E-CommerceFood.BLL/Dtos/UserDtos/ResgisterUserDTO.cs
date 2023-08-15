@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_CommerceFood.BLL.Managers.Dtos.User
+namespace E_CommerceFood.BLL.Dtos.UserDtos
 {
     public class ResgisterUserDTO
     {
@@ -21,8 +21,8 @@ namespace E_CommerceFood.BLL.Managers.Dtos.User
         //you should regular expression for that phone 
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
-        
 
 
-}
+
+    }
 }

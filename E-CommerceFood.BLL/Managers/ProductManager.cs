@@ -1,7 +1,7 @@
 ﻿using E_CommerceFood.DAL.Repositories;
 using E_CommerceFood.DAL.Model;
 using E_CommerceFood.DAL;
-using E_CommerceFood.BLL.Dtos;
+using E_CommerceFood.BLL.Dtos.ProductDtos;
 
 namespace E_CommerceFood.BLL.Managers
 {

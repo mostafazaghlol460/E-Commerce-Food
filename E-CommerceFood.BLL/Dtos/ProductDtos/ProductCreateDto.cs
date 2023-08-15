@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_CommerceFood.BLL.Dtos
+namespace E_CommerceFood.BLL.Dtos.ProductDtos
 {
     public class ProductCreateDto
     {

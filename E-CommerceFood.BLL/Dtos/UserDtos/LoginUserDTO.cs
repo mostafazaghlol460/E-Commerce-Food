@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_CommerceFood.BLL.Managers.Dtos.User
+namespace E_CommerceFood.BLL.Dtos.UserDtos
 {
-    public record LoginUserDTO(string UserName ,string Password);
+    public record LoginUserDTO(string UserName, string Password);
 
 }

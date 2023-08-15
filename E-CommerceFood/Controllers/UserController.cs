@@ -1,4 +1,4 @@
-﻿using E_CommerceFood.BLL.Managers.Dtos.User;
+﻿using E_CommerceFood.BLL.Dtos.UserDtos;
 using E_CommerceFood.BLL.Managers.UserDLL;
 using Microsoft.AspNetCore.Mvc;
 

@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using E_CommerceFood.BLL.Dtos;
 using E_CommerceFood.DAL.Model;
+using E_CommerceFood.BLL.Dtos.CategoryDtos;
 
 namespace E_CommerceFood.BLL.Managers
 {
-   public class CategoryManager
+    public class CategoryManager
     {
         ICategoryRepository categoryRepository;
 

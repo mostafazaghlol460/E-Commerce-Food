@@ -9,6 +9,6 @@ namespace E_CommerceFood.DAL.Model
 {
     public class ApplicationUser:IdentityUser
     {
-
+        public string Address { get; set; }
     }
 }

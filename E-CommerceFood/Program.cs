@@ -1,6 +1,7 @@
 
 using E_CommerceFood.BLL.Managers.OrderManagerModules;
 using E_CommerceFood.BLL.Managers.UserDLL;
+using E_CommerceFood.BLL.Managers.UserModules;
 using E_CommerceFood.DAL;
 using E_CommerceFood.DAL.Model;
 using E_CommerceFood.DAL.Repositories;
@@ -24,6 +25,8 @@ namespace E_CommerceFood
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<UserBLL>();
+            builder.Services.AddScoped<AdminBLL>();
+
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IOrderManager,OrderManager>();
             

@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_CommerceFood.Controllers
 {
-    public class UserController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
     {
         private readonly UserBLL _userBLL;
 
@@ -12,19 +14,19 @@ namespace E_CommerceFood.Controllers
         {
             _userBLL = registerUser;
         }
-        //[HttpGet]
-        //[Route("GetAllUser")]
-        //public async Task<ActionResult> GetAllUsers()
-        //{
-        //    var Data = await _userBLL.GetAllUser();
-        //    if (Data.Succeeded)
-        //    {
-        //        return Ok(Data);
-        //    }
-        //    return NotFound();
-        //}
+        [HttpGet]
+        [Route("GetAllUser")]
+        public async Task<ActionResult> GetAllUsers()
+        {
+            var Data = await _userBLL.GetAllUser();
+            if (Data!=null)
+            {
+                return Ok(Data);
+            }
+            return NotFound();
+        }
         [HttpPost]
-        [Route("User/Register")]
+        [Route("Register")]
         public async Task<ActionResult> RegisterUser(ResgisterUserDTO UserData)
         {
             var result = await _userBLL.Registeration(UserData);
@@ -49,16 +51,28 @@ namespace E_CommerceFood.Controllers
             return Unauthorized();
         }
         [HttpPut]
-        [Route("/Update/{id}")]
-        public async Task<ActionResult<UpdateDTO>> UpdateUser(UpdateDTO UserData)
+        [Route("{id}")]
+        public async Task<ActionResult<UpdateDTO>> UpdateUser(string id, UpdateDTO UserData)
         {
-            var result = await _userBLL.update_User(UserData);
+            var result = await _userBLL.update_User(UserData,id);
             if (result.Succeeded)
             {
                 return Ok();
             }
 
             return BadRequest();
+        }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult> GetUser(string id)
+        {
+            var result = await _userBLL.GetUser(id);
+            if (result!=null)
+            {
+                return Ok(result);
+            }
+
+            return NotFound();
         }
 
 

@@ -56,33 +56,81 @@ namespace E_CommerceFood.BLL.Managers.UserDLL
             return result;
 
         }
-        
-        public async Task<IdentityResult> update_User(UpdateDTO updateData)
+        public async Task<DataDisplayUser> GetUser(string id)
         {
-            var data =await _userManager.FindByIdAsync(updateData.Id);
-            var UserData = new User
+            var user = await _userManager.GetUsersForClaimAsync(new Claim(ClaimTypes.Role, "User"));
+            if (user.Count> 0)
             {
-                UserName = updateData.Name,
-                Email = updateData.Email,
-                PhoneNumber = updateData.PhoneNumber,
-                Address = updateData.Address
-            };
-            var result = await _userManager.UpdateAsync(UserData);
-            if (result.Succeeded)
+                var Data = user.Where(n => n.Id == id).FirstOrDefault();
+                if (Data != null)
+                {
+                    DataDisplayUser ReturnData = new DataDisplayUser
+                    {
+                        Id = Data.Id,
+                        Name =Data.UserName,
+                        PhoneNumber=Data.PhoneNumber,
+                        Address=Data.Address,
+                        Email=Data.Email
+                    };
+                    return ReturnData;
+                }
+            }
+            return null;
+        }
+        
+        public async Task<IdentityResult> update_User(UpdateDTO updateData,string id)
+        {
+            var data = await _userManager.FindByIdAsync(id);
+
+            if (data != null)
             {
-                return result;
+                // Refresh the data
+                var updatedData = await _userManager.FindByIdAsync(id);
+
+                updatedData.UserName = updateData.Name;
+                updatedData.Email = updateData.Email;
+                updatedData.PhoneNumber = updateData.PhoneNumber;
+                updatedData.Address = updateData.Address;
+
+                var result = await _userManager.UpdateAsync(updatedData);
+
+                if (result.Succeeded)
+                {
+                    return result;
+                }
+                else
+                {
+                    // Handle errors
+                    return null;
+                }
             }
             else
+            {
+                // Handle user not found
                 return null;
+            }
         }
-        //public async Task<IdentityResult> GetAllUser()
-        //{
-        //    var user= 
+        public async Task<ICollection<DataDisplayUser>?> GetAllUser()
+        {
+            
+            var Data = await _userManager.GetUsersForClaimAsync(new Claim(ClaimTypes.Role, "User"));
+            var adminUserDtos = Data.Select(user => new DataDisplayUser
+            {
+                Id=user.Id,
+                Name = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Address=user.Address,
 
-        //    var usersInRole = await _userManager.GetClaimsAsync(updateData);
+                
+            }).ToList();
+            if (adminUserDtos != null)
+            {
+                return adminUserDtos;
+            }
 
-        //    return (IdentityResult)usersInRole;
-        //}
+            return null;
+        }
 
         public async Task<TokenDto> login(LoginUserDTO loginUserDTO)
         {

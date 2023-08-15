@@ -1,7 +1,7 @@
-﻿using E_CommerceFood.BLL.Managers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using E_CommerceFood.BLL.Dtos.ProductDtos;
+using E_CommerceFood.BLL.Managers.ProductModules;
 
 namespace E_CommerceFood.Controllers
 {

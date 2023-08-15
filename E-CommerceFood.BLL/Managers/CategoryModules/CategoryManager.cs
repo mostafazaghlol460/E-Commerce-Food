@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using E_CommerceFood.DAL.Model;
 using E_CommerceFood.BLL.Dtos.CategoryDtos;
 
-namespace E_CommerceFood.BLL.Managers
+namespace E_CommerceFood.BLL.Managers.CategoryModules
 {
     public class CategoryManager
     {
@@ -17,7 +17,7 @@ namespace E_CommerceFood.BLL.Managers
         public CategoryManager(ICategoryRepository categoryRepository)
         {
             this.categoryRepository = categoryRepository;
-            
+
         }
         public List<CategoryGetAll> GetAll()
         {
@@ -30,7 +30,7 @@ namespace E_CommerceFood.BLL.Managers
                 {
                     Id = category.Id,
                     Name = category.Name,
-                 
+
                 };
                 categoryGetAlls.Add(categorylist);
 

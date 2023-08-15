@@ -3,7 +3,7 @@ using E_CommerceFood.DAL.Model;
 using E_CommerceFood.DAL;
 using E_CommerceFood.BLL.Dtos.ProductDtos;
 
-namespace E_CommerceFood.BLL.Managers
+namespace E_CommerceFood.BLL.Managers.ProductModules
 {
     public class ProductManager
     {
@@ -12,12 +12,12 @@ namespace E_CommerceFood.BLL.Managers
         {
             _productRepository = productRepository;
         }
-        public List<ProductGetAll> GetAll() 
+        public List<ProductGetAll> GetAll()
         {
             List<Product> products = _productRepository.GetAll();
             List<ProductGetAll> productGetAlls = new List<ProductGetAll>();
 
-            foreach(Product product in products)
+            foreach (Product product in products)
             {
                 var productlist = new ProductGetAll
                 {
@@ -30,10 +30,10 @@ namespace E_CommerceFood.BLL.Managers
                 productGetAlls.Add(productlist);
 
             }
-          return productGetAlls;
+            return productGetAlls;
         }
         public ProductDetailsDto GetById(int id)
-         {
+        {
             Product product = _productRepository.GetById(id);
             var productdto = new ProductDetailsDto
             {
@@ -42,11 +42,11 @@ namespace E_CommerceFood.BLL.Managers
                 Description = product.Descrption,
                 Image = product.Image,
                 CategoryId = product.CategoryId
-               
+
             };
-                 
+
             return productdto;
-         }
+        }
         public ProductAddDto create(ProductCreateDto productCreateDto)
         {
             if (productCreateDto == null)
@@ -67,40 +67,41 @@ namespace E_CommerceFood.BLL.Managers
             var result = new ProductAddDto()
             {
                 Name = productdb.Name,
-                Description = productdb.Descrption, Price = productdb.Price,
+                Description = productdb.Descrption,
+                Price = productdb.Price,
                 Image = productdb.Image,
             };
-            return result; 
-            
+            return result;
+
         }
         public Product Delete(int id)
         {
-            var data= _productRepository.GetById(id);
+            var data = _productRepository.GetById(id);
 
             if (data != null)
             {
-                
+
                 _productRepository.Delete(id);
                 return data;
             }
-             
-            
+
+
             return null;
         }
-        public ProductUpdateDto Update( ProductUpdateDto productUpdateDto , int id)
+        public ProductUpdateDto Update(ProductUpdateDto productUpdateDto, int id)
         {
             //if (productUpdateDto == null)
             //    return null;
             var productdb = _productRepository.GetById(id);
-            
-            productdb.Name=productUpdateDto.Name;
-            productdb.Descrption=productUpdateDto.Description;
-            productdb.Price=productUpdateDto.Price;
-            productdb.Image=productUpdateDto.Image;
-            productdb.CategoryId=productUpdateDto.CategoryId;
+
+            productdb.Name = productUpdateDto.Name;
+            productdb.Descrption = productUpdateDto.Description;
+            productdb.Price = productUpdateDto.Price;
+            productdb.Image = productUpdateDto.Image;
+            productdb.CategoryId = productUpdateDto.CategoryId;
 
             _productRepository.Update(productdb, id);
-            
+
 
             return productUpdateDto;
 

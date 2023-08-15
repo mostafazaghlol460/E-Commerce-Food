@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_CommerceFood.BLL.Managers
+namespace E_CommerceFood.BLL.Managers.CategoryModules
 {
-   public  interface IProductManager
+    public interface ICategoryManager
     {
     }
 }

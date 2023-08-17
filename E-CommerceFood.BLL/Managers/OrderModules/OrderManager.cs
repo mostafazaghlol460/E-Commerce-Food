@@ -1,4 +1,6 @@
-﻿using E_CommerceFood.BLL.Dtos.OrderDtos;
+﻿using E_CommerceFood.BLL.Dtos.LookUpDtos;
+using E_CommerceFood.BLL.Dtos.OrderDtos;
+using E_CommerceFood.BLL.Dtos.UserDtos;
 using E_CommerceFood.DAL.Model;
 using E_CommerceFood.DAL.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -46,7 +48,10 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
                 Date = order.Date,
                 Quantity = order.Quantity,
                 Total = order.Total,
-                UserId = order.UserId
+                User = new LookUpDto
+                {
+                    Name=order.user.UserName
+                },
             };
             return orderDto;
         }

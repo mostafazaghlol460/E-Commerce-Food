@@ -18,7 +18,7 @@ namespace E_CommerceFood.DAL.Repositories
 
         public Orders GetById(int id)
         {
-            return _context.Orderss
+            return _context.Orderss.Include(o=>o.user)
                             .FirstOrDefault(o => o.Id == id && o.IsDeleted == false);
         }
 

@@ -30,7 +30,7 @@ namespace E_CommerceFood.DAL.Repositories
 
         public void Update(Orders orders,int id)
         {
-            var orderDb = _context.Orderss.FirstOrDefault(o => o.Id == id);
+            var orderDb = _context.Orderss.Include(o=>o.user).FirstOrDefault(o => o.Id == id);
             _context.Orderss.Update(orders);
             Save();
         }

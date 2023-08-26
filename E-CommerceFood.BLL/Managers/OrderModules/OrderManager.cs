@@ -48,10 +48,7 @@ namespace E_CommerceFood.BLL.Managers.OrderManagerModules
                 Date = order.Date,
                 Quantity = order.Quantity,
                 Total = order.Total,
-                User = new LookUpDto
-                {
-                    Name=order.user.UserName
-                },
+                UserId=order.UserId
             };
             return orderDto;
         }

@@ -45,10 +45,9 @@ namespace E_CommerceFood.Controllers
 
         }
         [HttpPost]
-        public IActionResult create(ProductCreateDto productCreateDto)
+        public ActionResult create(ProductCreateDto productCreateDto)
         {
-            if(ModelState.IsValid)
-            {
+
                 var product = productManager.create(productCreateDto);
                 if (product != null)
                 {
@@ -56,7 +55,7 @@ namespace E_CommerceFood.Controllers
 
 
                 }
-            }
+            
             
             
                 return BadRequest();

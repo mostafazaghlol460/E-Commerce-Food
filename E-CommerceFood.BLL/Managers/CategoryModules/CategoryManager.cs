@@ -49,8 +49,6 @@ namespace E_CommerceFood.BLL.Managers.CategoryModules
         }
         public CategoryAddDto create(CategoryAddDto categoryCreateDto)
         {
-            //if (categoryCreateDto == null)
-            //    return null;
 
             var categorydb = new Category()
             {

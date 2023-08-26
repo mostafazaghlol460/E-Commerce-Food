@@ -8,7 +8,7 @@ namespace E_CommerceFood.BLL.Dtos.CategoryDtos
 {
     public class CategoryAddDto
     {
-        public int Id { get; set; }
+        
         public string Name { get; set; }
     }
 }

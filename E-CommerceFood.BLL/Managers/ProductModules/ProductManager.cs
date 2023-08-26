@@ -24,6 +24,7 @@ namespace E_CommerceFood.BLL.Managers.ProductModules
                     Id = product.Id,
                     Name = product.Name,
                     Description = product.Descrption,
+                    Price=product.Price,
                     Image = product.Image,
                     CategoryId = product.CategoryId
                 };
@@ -39,6 +40,8 @@ namespace E_CommerceFood.BLL.Managers.ProductModules
             {
                 Id = product.Id,
                 Name = product.Name,
+                Price = product.Price,
+
                 Description = product.Descrption,
                 Image = product.Image,
                 CategoryId = product.CategoryId

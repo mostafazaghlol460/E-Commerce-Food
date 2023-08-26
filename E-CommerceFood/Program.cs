@@ -1,5 +1,7 @@
 
+using E_CommerceFood.BLL.Managers.CategoryModules;
 using E_CommerceFood.BLL.Managers.OrderManagerModules;
+using E_CommerceFood.BLL.Managers.ProductModules;
 using E_CommerceFood.BLL.Managers.UserDLL;
 using E_CommerceFood.BLL.Managers.UserModules;
 using E_CommerceFood.DAL;
@@ -29,7 +31,13 @@ namespace E_CommerceFood
 
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IOrderManager,OrderManager>();
-            
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<CategoryManager>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ProductManager>();
+
+
+
 
             #region Database
             var ConnectionString = builder.Configuration.GetConnectionString("Food");
